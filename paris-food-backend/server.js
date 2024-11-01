@@ -3,12 +3,16 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const ordersRouter = require("./routes/orders");
+const path = require("path");
 
 const app = express();
 
 // 中间件
 app.use(cors());
 app.use(express.json());
+
+// 提供静态文件
+app.use(express.static(path.join(__dirname, "public")));
 
 // 连接MongoDB
 mongoose
@@ -18,6 +22,11 @@ mongoose
 
 // 路由
 app.use("/api/orders", ordersRouter);
+
+// 为根路径定义一个简单的路由
+app.get("/", (req, res) => {
+  res.send("Welcome to EasyFood!");
+});
 
 // 错误处理
 app.use((err, req, res, next) => {
