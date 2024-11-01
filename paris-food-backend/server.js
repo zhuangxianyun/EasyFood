@@ -7,8 +7,13 @@ const path = require("path");
 
 const app = express();
 
+const corsOptions = {
+  origin: "https://easy-food-ten.vercel.app", // 允许的前端应用的URL
+  optionsSuccessStatus: 200, // 一些旧版浏览器对204状态不兼容
+};
+
 // 中间件
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(express.json());
 
 // 提供静态文件
