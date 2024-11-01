@@ -890,20 +890,19 @@
         const orderData = {
           nickname: nickname,
           wechat: wechat,
+          location: location,
           orderItems: cartData,
           subtotal: subtotal,
           total: total,
           pickupDate: date,
           pickupTime: time,
           orderTime: new Date().toLocaleString(),
+          status: "pending", // 添加订单状态字段
         };
 
-        // 根据选择的地点保存到不同的文件
-        const fileName =
-          location === "Massy" ? "massy_orders.json" : "cite_orders.json";
-
-        // 发送订单数据到服务器
-        fetch(`http://localhost:3000/${fileName}`, {
+        // 发送订单数据到 MongoDB Atlas
+        fetch("http://localhost:3000/api/orders", {
+          // 假设后端API端点为 /api/orders
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -913,9 +912,13 @@
           .then((response) => response.json())
           .then((data) => {
             if (data.success) {
-              console.log("订单保存成功");
-              // 继续生成小票图片
+              console.log("订单已保存到 MongoDB");
+              // 清空购物车
+              localStorage.removeItem("cartData");
+              // 生成小票图片
               generateReceiptImage();
+              // 可以添加订单成功的提示
+              alert("订单已成功提交！");
             } else {
               console.error("订单保存失败");
               alert("订单保存失败，请重试");
