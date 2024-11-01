@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>巴黎料理包自助订购</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header>
+      <div class="logo">巴黎料理包</div>
+      <nav>
+        <ul>
+          <li><a href="#home">主页</a></li>
+          <li><a href="#cart">购物车</a></li>
+          <li><a href="#contact">联系我们</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main id="product-list">
+      <!-- 商品卡片将通过JavaScript动态添加 -->
+    </main>
+
+    <footer id="cart-bar">
+      <div id="cart-total">总计: €0.00</div>
+      <button id="checkout-btn">确认订单</button>
+    </footer>
+
+    <!-- 新增：模态框结构 -->
+    <div id="product-modal" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <img id="modal-image" src="" alt="" />
+        <h2 id="modal-title"></h2>
+        <p id="modal-ingredients"></p>
+        <p id="modal-expiry"></p>
+        <p id="modal-storage"></p>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+      document
+        .getElementById("checkout-btn")
+        .addEventListener("click", function () {
+          goToConfirmation();
+        });
+    </script>
+  </body>
+</html>

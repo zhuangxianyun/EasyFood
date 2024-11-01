@@ -1,0 +1,21 @@
+{
+  "orders": [
+    {
+      "nickname": "yy",
+      "wechat": "yy",
+      "orderItems": [
+        {
+          "id": 4,
+          "name": "鱼香肉丝",
+          "price": 6,
+          "quantity": 1
+        }
+      ],
+      "subtotal": "€6.00",
+      "total": "€6.00",
+      "pickupDate": "2024-11-01",
+      "pickupTime": "18:00",
+      "orderTime": "2024/10/31 13:46:10"
+    }
+  ]
+}
