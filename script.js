@@ -15,7 +15,7 @@ const products = [
     id: 2,
     name: "台式卤肉",
     price: 5.5,
-    stock: 20,
+    stock: 4,
     weight: 170,
     image: "./images/taisheluru.jpg",
     ingredients: "猪肉、卤肉粉、酱油、葱姜蒜、八角等",
@@ -26,7 +26,7 @@ const products = [
     id: 3,
     name: "毛氏红烧肉",
     price: 5.5,
-    stock: 12,
+    stock: 1,
     weight: 200,
     image: "./images/maoshihongshaorou.jpg",
     ingredients: "猪肉、红烧肉粉、酱油、葱姜蒜、八角等",
@@ -44,22 +44,23 @@ const products = [
     expiry: "常温12个月",
     storage: "阴凉处存放",
   },
-  {
+  /*{
     id: 5,
     name: "咖喱鸡肉",
     price: 5.0,
-    stock: 3,
+    stock: 0,
     weight: 220,
     image: "./images/galijirou.jpg",
     ingredients: "鸡肉、咖喱粉、酱油、葱姜蒜、八角等",
     expiry: "常温12个月",
     storage: "阴凉处存放",
   },
+  */
   {
     id: 6,
     name: "辣子鸡",
     price: 5.0,
-    stock: 8,
+    stock: 5,
     weight: 170,
     image: "./images/laziji.jpg",
     ingredients: "鸡肉、辣子粉、酱油、葱姜蒜、八角等",
@@ -71,7 +72,7 @@ const products = [
     id: 7,
     name: "黄豆闷猪肘",
     price: 5.5,
-    stock: 20,
+    stock: 7,
     weight: 200,
     image: "./images/huangdoumenzhuzhou.jpg",
     ingredients: "猪肘、黄豆、酱油、葱姜蒜、八角等",
@@ -82,7 +83,7 @@ const products = [
     id: 8,
     name: "黑椒肉丸",
     price: 5.5,
-    stock: 7,
+    stock: 4,
     weight: 200,
     image: "./images/heijiaorouwan.jpg",
     ingredients: "猪肉、黑椒粉、酱油、葱姜蒜、八角等",
@@ -93,7 +94,7 @@ const products = [
     id: 9,
     name: "番茄牛腩",
     price: 5.8,
-    stock: 20,
+    stock: 4,
     weight: 200,
     image: "./images/fanqieniunan.jpg",
     ingredients: "牛腩、番茄、酱油、葱姜蒜、八角等",
@@ -226,7 +227,6 @@ function goToConfirmation() {
     alert("购物车为空，请先添加商品！");
   }
 }
-
 // 删除或注释掉这个事件监听器
 // document.getElementById("checkout-btn").addEventListener("click", () => {
 //   alert("跳转到确认订单页面");
