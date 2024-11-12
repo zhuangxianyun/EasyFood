@@ -22,6 +22,7 @@ const products = [
     expiry: "常温12个月",
     storage: "阴凉处存放",
   },
+  /*
   {
     id: 3,
     name: "毛氏红烧肉",
@@ -33,6 +34,7 @@ const products = [
     expiry: "常温12个月",
     storage: "阴凉处存放",
   },
+  */
   {
     id: 4,
     name: "鱼香肉丝",
