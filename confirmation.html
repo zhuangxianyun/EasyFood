@@ -343,7 +343,7 @@
         }
       }
 
-      /* 添加日期和时间输入框的图标样式 */
+      /* 添日期和时间输入框图标样式 */
       .delivery-option input[type="date"],
       .delivery-option select#pickup-time {
         padding-right: 30px;
@@ -463,12 +463,19 @@
         <div id="SelfPickup" class="tabcontent" style="display: block">
           <div class="delivery-option">
             <h3>自提地点</h3>
-            <select id="pickup-location">
+            <select id="pickup-location" onchange="updateLocationText()">
               <option value="Massy">
                 Massy Palaiseau站 （Le Calypso店前）
               </option>
-              <option value="Cite">Cite University站 （Eurl Kvma店前）</option>
+              <option value="Cite">Cité Universitaire站 （RER站前）</option>
+              <option value="Chatelet">Châtelet站 （KFC店前）</option>
+              <option value="Opera">Opéra站 （巴黎春天前）</option>
+              <option value="LaDefense">La Défense站 （新凯旋门）</option>
             </select>
+            <div
+              id="location-text"
+              style="margin-top: 10px; font-weight: bold"
+            ></div>
           </div>
           <div class="delivery-option">
             <h3>自提时间</h3>
@@ -476,6 +483,11 @@
             <select id="pickup-time">
               <!-- 选项将通过 JavaScript 动态添加 -->
             </select>
+            <p>
+              <strong
+                >因后续自提点安排，过时将无法提供服务，敬请谅解，谢谢您的理解与配合！</strong
+              >
+            </p>
           </div>
         </div>
 
@@ -497,7 +509,7 @@
             <input
               type="text"
               id="locker-number"
-              placeholder="自提柜编号 例：FR-19104"
+              placeholder="自柜编号 例：FR-19104"
             />
             <input type="text" id="locker-name" placeholder="姓名" />
             <input type="tel" id="locker-phone" placeholder="联系电话" />
@@ -542,7 +554,7 @@
           </div>
           <div class="input-group">
             <label for="wechat">微信号（方便确认订单）</label>
-            <input type="text" id="wechat" placeholder="请输入您的微信号" />
+            <input type="text" id="wechat" placeholder="请输您的微信号" />
           </div>
         </div>
       </div>
@@ -585,7 +597,11 @@
         </div>
         <div class="receipt-footer">
           <p>感谢您的订购！</p>
-          <p><strong>请务必点击保存订单，下载订单图片！</strong></p>
+          <p>
+            <strong
+              >请务必点击存订单，下载订单图片！或截图发给负责人微信。</strong
+            >
+          </p>
           <div class="receipt-buttons">
             <button class="receipt-button save-button" onclick="saveReceipt()">
               保存订单
@@ -701,23 +717,31 @@
         // 清空现有选项
         timeSelect.innerHTML = "";
 
+        const option = document.createElement("option");
+
         if (locationSelect.value === "Massy") {
-          // Massy站：18:00到20:00
-          for (let hour = 18; hour <= 20; hour++) {
-            const option = document.createElement("option");
-            option.value = `${hour}:00`;
-            option.textContent = `${hour}:00`;
-            timeSelect.appendChild(option);
-          }
+          // Massy站：18:00到18:30
+          option.value = "18:00-18:30";
+          option.textContent = "18:00-18:30(请您准时来取货哦！)";
         } else if (locationSelect.value === "Cite") {
-          // Cite：14:00到18:00
-          for (let hour = 14; hour <= 18; hour++) {
-            const option = document.createElement("option");
-            option.value = `${hour}:00`;
-            option.textContent = `${hour}:00`;
-            timeSelect.appendChild(option);
-          }
+          // Cite：14:00到14:30
+          option.value = "14:00-14:30";
+          option.textContent = "14:00-14:30(请您准时来取货哦！)";
+        } else if (locationSelect.value === "Chatelet") {
+          // Châtelet：18:00到18:30
+          option.value = "18:00-18:30";
+          option.textContent = "18:00-18:30(请您准时来取货哦！)";
+        } else if (locationSelect.value === "Opera") {
+          // Opéra：18:40到19:10
+          option.value = "18:40-19:10";
+          option.textContent = "18:40-19:10(请您准时来取货哦！)";
+        } else if (locationSelect.value === "LaDefense") {
+          // La Défense：19:20到20:00
+          option.value = "19:20-20:00";
+          option.textContent = "19:20-20:00(请您准时来取货哦！)";
         }
+
+        timeSelect.appendChild(option);
       }
 
       // 修改 initializeDatePicker 函数，添加地点变更时的时间更新
@@ -742,12 +766,21 @@
 
             if (location === "Massy") {
               // Massy站：工作日可选
-              if (day !== 0 && day !== 6) {
+              if (day === 2 || day === 4) {
                 return currentDate;
               }
             } else if (location === "Cite") {
               // Cite站：只有周六可选
               if (day === 6) {
+                return currentDate;
+              }
+            } else if (
+              location === "Chatelet" ||
+              location === "Opera" ||
+              location === "LaDefense"
+            ) {
+              // Châtelet, Opéra, La Défense站：只有周日和周一可选
+              if (day === 0 || day === 1) {
                 return currentDate;
               }
             }
@@ -768,9 +801,20 @@
               const location = locationSelect.value;
 
               if (location === "Massy") {
-                return day === 0 || day === 6;
+                // 禁用周日、周一、周三、周五、周六
+                return (
+                  day === 0 || day === 1 || day === 3 || day === 5 || day === 6
+                );
               } else if (location === "Cite") {
+                // 禁用除周六以外的所有日期
                 return day !== 6;
+              } else if (
+                location === "Chatelet" ||
+                location === "Opera" ||
+                location === "LaDefense"
+              ) {
+                // 禁用除周日和周一以外的所有日期
+                return day !== 0 && day !== 1;
               }
               return false;
             },
@@ -780,7 +824,14 @@
               const selectedDay = selectedDates[0].getDay();
               const location = locationSelect.value;
 
-              if (location === "Cite" && selectedDay !== 6) {
+              if (
+                (location === "Cite" && selectedDay !== 6) ||
+                ((location === "Chatelet" ||
+                  location === "Opera" ||
+                  location === "LaDefense") &&
+                  selectedDay !== 0 &&
+                  selectedDay !== 1)
+              ) {
                 instance.clear();
               }
             }
@@ -813,6 +864,8 @@
 
       // 修改 window.onload 函数
       window.onload = function () {
+        updateLocationText();
+
         const cartData = JSON.parse(localStorage.getItem("cartData"));
         if (cartData && cartData.length > 0) {
           fillOrderDetails(cartData);
@@ -880,7 +933,11 @@
             return;
           }
 
-          deliveryDetails = `自提地点: ${location}\n自提日期: ${date}\n自提时间: ${time}`;
+          // 获取详细地址
+          const locationText =
+            document.getElementById("location-text").textContent;
+
+          deliveryDetails = `自提地点: ${location}\n详细地址: ${locationText}\n自提日期: ${date}\n自提时间: ${time}`;
         } else {
           // 验证配送信息
           const lockerAddress = document.getElementById("locker-address").value;
@@ -1029,7 +1086,7 @@
           });
       }
 
-      // 添加生成小票图片的函数
+      // 添加成小票图片的函数
       function generateReceiptImage() {
         const closeBtn = document.querySelector(".close-receipt");
         const buttons = document.querySelector(".receipt-buttons");
@@ -1095,6 +1152,31 @@
           closeContactModal();
         }
       };
+
+      function updateLocationText() {
+        const locationSelect = document.getElementById("pickup-location");
+        const locationText = document.getElementById("location-text");
+
+        switch (locationSelect.value) {
+          case "Massy":
+            locationText.textContent = "44 Av. Carnot, 91300 Massy";
+            break;
+          case "Cite":
+            locationText.textContent = "75014 Paris";
+            break;
+          case "Chatelet":
+            locationText.textContent = "31-35 Bd de Sébastopol, 75001 Paris";
+            break;
+          case "Opera":
+            locationText.textContent = "64 Bd Haussmann, 75009 Paris";
+            break;
+          case "LaDefense":
+            locationText.textContent = "1 Parv. de la Défense, 92800 Puteaux";
+            break;
+          default:
+            locationText.textContent = "";
+        }
+      }
     </script>
   </body>
 </html>
