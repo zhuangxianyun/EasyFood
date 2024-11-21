@@ -11,7 +11,7 @@ const products = [
     expiry: "常温12个月",
     storage: "阴凉处存放",
   },
-  {
+  /*{
     id: 2,
     name: "台式卤肉",
     price: 5.5,
@@ -22,7 +22,7 @@ const products = [
     expiry: "常温12个月",
     storage: "阴凉处存放",
   },
-  /*
+  
   {
     id: 3,
     name: "毛氏红烧肉",
