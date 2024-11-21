@@ -58,7 +58,7 @@ const products = [
     storage: "阴凉处存放",
   },
   */
-  {
+  /*{
     id: 6,
     name: "辣子鸡",
     price: 5.0,
@@ -69,6 +69,7 @@ const products = [
     expiry: "常温12个月",
     storage: "阴凉处存放",
   },
+  */
   // 新增商品
   {
     id: 7,
@@ -92,7 +93,7 @@ const products = [
     expiry: "常温12个月",
     storage: "阴凉处存放",
   },
-  {
+  /* {
     id: 9,
     name: "番茄牛腩",
     price: 5.8,
@@ -103,6 +104,7 @@ const products = [
     expiry: "常温12个月",
     storage: "阴凉处存放",
   },
+  */
   {
     id: 10,
     name: "牛肉麻婆豆腐",
